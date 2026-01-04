@@ -1,0 +1,114 @@
+/* =========================
+   Navbar container
+========================= */
+.navbar {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* =========================
+   Logo (left side)
+========================= */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1b7cff;
+  text-decoration: none;
+}
+
+.logo:hover {
+  opacity: 0.9;
+}
+
+/* Optional icon before text */
+.logo-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* =========================
+   Right-side links container
+========================= */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* ✅ FIXES LINK CROWDING */
+}
+
+/* =========================
+   Normal links
+========================= */
+.nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f2a44;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: #1b7cff;
+}
+
+/* =========================
+   Buttons (Login / Sign Up)
+========================= */
+.nav-links .btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Sign Up (outline) */
+.nav-links .btn-outline {
+  border: 1px solid #1b7cff;
+  color: #1b7cff;
+  background: transparent;
+}
+
+.nav-links .btn-outline:hover {
+  background: #eaf3ff;
+}
+
+/* Login (primary) */
+.nav-links .btn-primary {
+  background: #1b7cff;
+  color: white;
+  border: none;
+}
+
+.nav-links .btn-primary:hover {
+  background: #1666d9;
+}
+
+/* =========================
+   Logout button
+========================= */
+.logout-btn {
+  background: transparent;
+  border: none;
+  color: #1b7cff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.logout-btn:hover {
+  text-decoration: underline;
+}
