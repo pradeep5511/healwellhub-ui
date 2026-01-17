@@ -1,48 +1,57 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import "./FindDoctor.css";
 
-const MOCK_DOCTORS = [
-  {
-    id: 1,
-    name: "Dr. Amit Sharma",
-    specialization: "Cardiologist",
-    city: "Delhi",
-    experience: 15
-  },
-  {
-    id: 2,
-    name: "Dr. Neha Verma",
-    specialization: "Dermatologist",
-    city: "Bangalore",
-    experience: 10
-  },
-  {
-    id: 3,
-    name: "Dr. Rahul Mehta",
-    specialization: "Orthopedic",
-    city: "Mumbai",
-    experience: 12
-  },
-  {
-    id: 4,
-    name: "Dr. Pooja Iyer",
-    specialization: "Pediatrician",
-    city: "Chennai",
-    experience: 8
-  }
-];
-
 export default function FindDoctor() {
+  const [doctors, setDoctors] = useState([]);
   const [search, setSearch] = useState("");
   const [specialization, setSpecialization] = useState("");
   const [city, setCity] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const filteredDoctors = MOCK_DOCTORS.filter((doc) =>
-    doc.name.toLowerCase().includes(search.toLowerCase()) &&
-    (specialization ? doc.specialization === specialization : true) &&
-    (city ? doc.city === city : true)
-  );
+  useEffect(() => {
+    fetch("http://localhost:8080/api/doctors", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          throw new Error("Failed to load doctors");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setDoctors(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
+  const filteredDoctors = doctors.filter((d) => {
+    const name =
+      d.name ||
+      `${d.firstName || ""} ${d.lastName || ""}`.trim();
+
+    const matchesName = name
+      .toLowerCase()
+      .includes(search.toLowerCase());
+
+    const matchesSpec = specialization
+      ? (d.specialization || "").toLowerCase() ===
+        specialization.toLowerCase()
+      : true;
+
+    const matchesCity = city
+      ? (d.city || "").toLowerCase() === city.toLowerCase()
+      : true;
+
+    return matchesName && matchesSpec && matchesCity;
+  });
 
   return (
     <>
@@ -54,7 +63,7 @@ export default function FindDoctor() {
           Search and consult trusted healthcare professionals near you
         </p>
 
-        {/* 🔍 Search Filters */}
+        {/* Search Bar */}
         <div className="search-bar">
           <input
             type="text"
@@ -68,10 +77,11 @@ export default function FindDoctor() {
             onChange={(e) => setSpecialization(e.target.value)}
           >
             <option value="">All Specializations</option>
-            <option value="Cardiologist">Cardiologist</option>
-            <option value="Dermatologist">Dermatologist</option>
+            <option value="Cardiology">Cardiology</option>
+            <option value="Dermatology">Dermatology</option>
             <option value="Orthopedic">Orthopedic</option>
-            <option value="Pediatrician">Pediatrician</option>
+            <option value="Pediatrics">Pediatrics</option>
+            <option value="General">General</option>
           </select>
 
           <select
@@ -80,35 +90,63 @@ export default function FindDoctor() {
           >
             <option value="">All Cities</option>
             <option value="Delhi">Delhi</option>
-            <option value="Bangalore">Bangalore</option>
             <option value="Mumbai">Mumbai</option>
+            <option value="Bangalore">Bangalore</option>
             <option value="Chennai">Chennai</option>
           </select>
         </div>
 
-        {/* 👨‍⚕️ Doctor Cards */}
+        {/* States */}
+        {loading && <p>Loading doctors...</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+
+        {/* Doctor Grid */}
         <div className="doctor-grid">
-          {filteredDoctors.length === 0 && (
-            <p className="no-results">No doctors found</p>
+          {!loading && filteredDoctors.length === 0 && (
+            <div className="no-results">No doctors found</div>
           )}
 
-          {filteredDoctors.map((doc) => (
-            <div className="doctor-card" key={doc.id}>
-              <div className="avatar">
-                {doc.name.charAt(0)}
+          {filteredDoctors.map((doc) => {
+            const displayName =
+              doc.name ||
+              `${doc.firstName || ""} ${doc.lastName || ""}`.trim();
+
+            return (
+              <div className="doctor-card" key={doc.id}>
+                <div className="avatar">
+                  {doc.profileImage ? (
+                    <img
+                      src={`http://localhost:8080/uploads/profile-images/${doc.profileImage}`}
+                      alt="Doctor"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  ) : (
+                    (displayName || "D").charAt(0)
+                  )}
+                </div>
+
+                <h3>{displayName || "Doctor"}</h3>
+
+                <div className="spec">
+                  {doc.specialization || "General"}
+                </div>
+
+                <div className="meta">
+                  {doc.city || "India"} ·{" "}
+                  {doc.experience || 0}+ yrs experience
+                </div>
+
+                <button className="consult-btn">
+                  Consult
+                </button>
               </div>
-
-              <h3>{doc.name}</h3>
-              <p className="spec">{doc.specialization}</p>
-              <p className="meta">
-                {doc.city} • {doc.experience}+ yrs experience
-              </p>
-
-              <button className="consult-btn">
-                Consult
-              </button>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </>

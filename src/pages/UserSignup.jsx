@@ -19,7 +19,7 @@ export default function UserSignup() {
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
       }
     );
 
@@ -32,25 +32,77 @@ export default function UserSignup() {
   return (
     <>
       <Navbar />
-      <form className="signup-form" onSubmit={handleSubmit}>
-        <h2>User Registration</h2>
 
-        <input name="email" placeholder="Email" onChange={handleChange} required />
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
+      <div className="signup-page">
+        <form className="signup-card" onSubmit={handleSubmit}>
+          <h2>User Registration</h2>
 
-        <input name="firstName" placeholder="First Name" onChange={handleChange} required />
-        <input name="lastName" placeholder="Last Name" onChange={handleChange} required />
+          <div className="signup-grid">
+            <input
+              name="email"
+              placeholder="Email"
+              onChange={handleChange}
+              required
+            />
 
-        <input name="dob" type="date" onChange={handleChange} required />
+            <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              onChange={handleChange}
+              required
+            />
 
-        <input name="place" placeholder="City / Place" onChange={handleChange} required />
-        <input name="state" placeholder="State" onChange={handleChange} required />
-        <input name="country" placeholder="Country" onChange={handleChange} required />
+            <input
+              name="firstName"
+              placeholder="First Name"
+              onChange={handleChange}
+              required
+            />
 
-        <button type="submit">Register</button>
+            <input
+              name="lastName"
+              placeholder="Last Name"
+              onChange={handleChange}
+              required
+            />
 
-        {message && <p className="success">{message}</p>}
-      </form>
+            <input
+              name="dob"
+              type="date"
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              name="place"
+              placeholder="City / Place"
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              name="state"
+              placeholder="State"
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              name="country"
+              placeholder="Country"
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button type="submit" className="signup-btn">
+            Register
+          </button>
+
+          {message && <p className="success-msg">{message}</p>}
+        </form>
+      </div>
     </>
   );
 }

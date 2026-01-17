@@ -1,69 +1,164 @@
 .profile-page {
-  padding: 40px;
+  padding: 60px 20px;
   display: flex;
   justify-content: center;
+  background: #f7f9fc;
 }
 
-.profile-card {
-  background: white;
+.profile-card-modern {
+  background: #ffffff;
   width: 100%;
-  max-width: 520px;
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  max-width: 760px;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  text-align: center;
 }
 
-.profile-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 24px;
+/* Avatar */
+.avatar-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 16px;
 }
 
-.profile-avatar {
-  width: 56px;
-  height: 56px;
+.avatar-wrapper img {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #1b7cff;
+}
+
+.avatar-upload {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
   background: #1b7cff;
   color: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
-  font-weight: 700;
+  cursor: pointer;
 }
 
-.profile-title {
-  font-size: 22px;
+/* Name & role */
+.profile-name {
+  margin-top: 12px;
+  font-size: 24px;
   font-weight: 700;
   color: #0f2a44;
 }
 
-.profile-info {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  row-gap: 16px;
-  column-gap: 12px;
-}
-
-.profile-item {
-  font-size: 14px;
-  color: #5f6c7b;
-}
-
-.profile-item span {
-  display: block;
-  font-weight: 600;
-  color: #0f2a44;
-  margin-bottom: 4px;
-}
-
-.profile-badge {
+.role-pill {
   display: inline-block;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 600;
+  margin-top: 6px;
+  padding: 6px 14px;
   background: #e6f0ff;
   color: #1b7cff;
+  font-weight: 600;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* Upload */
+.btn-upload {
+  margin: 12px auto 20px;
+  background: transparent;
+  border: 1px solid #1b7cff;
+  color: #1b7cff;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-upload:hover {
+  background: #eaf3ff;
+}
+
+/* Info grid */
+.profile-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 32px;
+  margin-top: 30px;
+  text-align: left;
+}
+
+.profile-info-grid label {
+  font-size: 12px;
+  color: #6b7a90;
+  font-weight: 600;
+}
+
+.profile-info-grid p {
+  margin-top: 4px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #0f2a44;
+}
+
+.profile-info-grid input {
+  margin-top: 6px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #dce3ed;
+  font-size: 14px;
+  width: 100%;
+}
+
+/* Status */
+.active {
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.inactive {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+/* Actions */
+.profile-actions-modern {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.btn-primary {
+  background: #1b7cff;
+  color: white;
+  padding: 12px 22px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #1666d9;
+}
+
+.btn-secondary {
+  background: #f1f5f9;
+  color: #0f2a44;
+  padding: 12px 22px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Success */
+.success-msg {
+  margin-top: 14px;
+  color: #16a34a;
+  font-weight: 600;
 }

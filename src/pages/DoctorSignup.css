@@ -1,0 +1,110 @@
+.doctor-signup-page {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 16px;
+  background: #f7f9fc;
+}
+
+.doctor-signup-card {
+  background: white;
+  width: 100%;
+  max-width: 560px;
+  padding: 36px;
+  border-radius: 16px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
+}
+
+.doctor-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.doctor-nav a {
+  color: #1b7cff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.doctor-nav span {
+  color: #999;
+}
+
+.doctor-signup-card h2 {
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 6px;
+  color: #0f2a44;
+}
+
+.subtitle {
+  text-align: center;
+  color: #5f7288;
+  margin-bottom: 28px;
+}
+
+.doctor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.doctor-grid input {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccd6e0;
+  font-size: 14px;
+}
+
+.doctor-grid input:focus {
+  outline: none;
+  border-color: #1b7cff;
+  box-shadow: 0 0 0 2px rgba(27, 124, 255, 0.12);
+}
+
+/* Email & Password full width */
+.doctor-grid input[name="email"],
+.doctor-grid input[name="password"] {
+  grid-column: 1 / -1;
+}
+
+.doctor-btn {
+  margin-top: 26px;
+  width: 100%;
+  padding: 14px;
+  background: #1b7cff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.doctor-btn:hover {
+  background: #155fd1;
+}
+
+.note {
+  margin-top: 14px;
+  font-size: 13px;
+  text-align: center;
+  color: #6b7c93;
+}
+
+.success-msg {
+  margin-top: 16px;
+  text-align: center;
+  color: #1a9b4c;
+  font-weight: 600;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .doctor-grid {
+    grid-template-columns: 1fr;
+  }
+}
