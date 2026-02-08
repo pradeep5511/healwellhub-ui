@@ -1,8 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import "./Home.css";
 
 export default function Home() {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+
+  const handleUploadClick = () => {
+    if (!token) {
+      navigate("/login");
+    } else if (role === "USER") {
+      navigate("/upload-report");
+    } else {
+      // admin or doctor should not upload reports
+      navigate("/");
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -19,7 +34,10 @@ export default function Home() {
             </p>
 
             <div className="cta">
-              <button className="primary-btn">
+              <button
+                className="primary-btn"
+                onClick={handleUploadClick}
+              >
                 Upload Report
               </button>
 

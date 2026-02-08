@@ -11,8 +11,15 @@ import DoctorSignup from "./pages/DoctorSignup";
 
 import UserDashboard from "./pages/UserDashboard";
 import DoctorDashboard from "./pages/DoctorDashboard";
-import ProtectedRoute from "./routes/ProtectedRoute";
 import Profile from "./pages/Profile";
+import VerifyEmail from "./pages/VerifyEmail";
+
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import UsersList from "./pages/admin/UsersList";
+import DoctorsList from "./pages/admin/DoctorsList";
+
+import ProtectedRoute from "./routes/ProtectedRoute";
+import UploadReport from "./pages/UploadReport";
 
 function App() {
   return (
@@ -26,10 +33,47 @@ function App() {
       <Route path="/signup" element={<SignupChoice />} />
       <Route path="/signup/user" element={<UserSignup />} />
       <Route path="/signup/doctor" element={<DoctorSignup />} />
-      <Route path="/profile" element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
-
+      <Route path="/verify-email" element={<VerifyEmail />} />
 
       {/* ===== Protected Routes ===== */}
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* ===== Admin Routes ===== */}
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute role="ADMIN">
+            <AdminDashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/users"
+        element={
+          <ProtectedRoute role="ADMIN">
+            <UsersList />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/doctors"
+        element={
+          <ProtectedRoute role="ADMIN">
+            <DoctorsList />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* ===== User Dashboard ===== */}
       <Route
         path="/dashboard"
         element={
@@ -39,6 +83,7 @@ function App() {
         }
       />
 
+      {/* ===== Doctor Dashboard ===== */}
       <Route
         path="/doctor/dashboard"
         element={

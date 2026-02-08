@@ -1,0 +1,69 @@
+.doctor-container {
+  padding: 40px;
+}
+
+.doctor-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+}
+
+.doctor-table th,
+.doctor-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.doctor-table th {
+  background: #f5f5f5;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status.pending {
+  background: #fff4e5;
+  color: #d97706;
+}
+
+.status.approved {
+  background: #e6f7ed;
+  color: #15803d;
+}
+
+.status.rejected {
+  background: #fdecea;
+  color: #b91c1c;
+}
+
+.approve-btn {
+  margin-right: 8px;
+  padding: 6px 12px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reject-btn {
+  padding: 6px 12px;
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.no-data {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+  font-style: italic;
+}

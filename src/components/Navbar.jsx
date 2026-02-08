@@ -4,6 +4,8 @@ import "./Navbar.css";
 export default function Navbar() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+  console.log("Current role:", role);
 
   const logout = () => {
     localStorage.clear();
@@ -20,6 +22,17 @@ export default function Navbar() {
       <div className="nav-links">
         <Link to="/about">About</Link>
         <Link to="/find-doctors">Find Doctors</Link>
+
+        {/* Admin link */}
+        {role === "ADMIN" && <Link to="/admin">Admin</Link>}
+
+        {/* User dashboard */}
+        {role === "USER" && <Link to="/dashboard">Dashboard</Link>}
+
+        {/* Doctor dashboard */}
+        {role === "DOCTOR" && (
+          <Link to="/doctor/dashboard">Doctor Panel</Link>
+        )}
 
         {token && <Link to="/profile">Profile</Link>}
 

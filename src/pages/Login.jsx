@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
+import BASE_URL from "../config/api";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ export default function Login() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:8080/api/auth/login", {
+      const res = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
@@ -25,18 +26,20 @@ export default function Login() {
         throw new Error(data.message || "Login failed");
       }
 
-      // ✅ Defensive checks
+      // Defensive checks
       if (!data.token || !data.role) {
         throw new Error("Invalid login response from server");
       }
 
-      // ✅ Store auth info
+      // Store auth info
       localStorage.setItem("token", data.token);
       localStorage.setItem("role", data.role);
       localStorage.setItem("email", data.email || email);
 
-      // ✅ Redirect based on role
-      if (data.role === "DOCTOR") {
+      // Role-based redirect
+      if (data.role === "ADMIN") {
+        navigate("/admin", { replace: true });
+      } else if (data.role === "DOCTOR") {
         navigate("/doctor/dashboard", { replace: true });
       } else {
         navigate("/dashboard", { replace: true });

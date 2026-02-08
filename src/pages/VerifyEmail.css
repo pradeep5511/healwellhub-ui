@@ -1,0 +1,136 @@
+.verify-page {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #eef5ff, #f7fbff);
+  padding: 20px;
+}
+
+.verify-card {
+  background: white;
+  padding: 40px;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+}
+
+.verify-card.success {
+  transform: scale(1.05);
+}
+
+.verify-card h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
+  color: #0f2a44;
+}
+
+.subtitle {
+  color: #6b7c93;
+  font-size: 14px;
+}
+
+.email {
+  font-weight: 600;
+  color: #1b7cff;
+  margin-bottom: 20px;
+}
+
+.otp-boxes {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.otp-boxes input {
+  width: 48px;
+  height: 54px;
+  font-size: 22px;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid #d3dce6;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.otp-boxes input:focus {
+  border-color: #1b7cff;
+  box-shadow: 0 0 0 2px rgba(27, 124, 255, 0.15);
+}
+
+.verify-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  background: linear-gradient(135deg, #1b7cff, #1666d9);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.verify-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(27, 124, 255, 0.3);
+}
+
+.message {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #28a745;
+}
+
+.resend {
+  margin-top: 18px;
+  font-size: 13px;
+  color: #6b7c93;
+}
+
+.resend span {
+  color: #1b7cff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.success-check {
+  margin-top: 20px;
+  font-size: 42px;
+  color: #28a745;
+  animation: pop 0.4s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.verify-btn:disabled {
+  background: #c5d4f7;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-6px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.4s ease;
+}

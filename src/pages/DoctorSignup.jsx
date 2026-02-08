@@ -2,30 +2,51 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "./DoctorSignup.css";
+import BASE_URL from "../config/api";
 
 export default function DoctorSignup() {
   const navigate = useNavigate();
+
   const [form, setForm] = useState({});
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
+    setLoading(true);
 
-    const res = await fetch(
-      "http://localhost:8080/api/auth/register/doctor",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+    try {
+      const res = await fetch(
+        `${BASE_URL}/api/auth/register/doctor`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
+
+      let data = {};
+      try {
+        data = await res.json();
+      } catch {
+        // ignore empty response
       }
-    );
 
-    if (res.ok) {
-      setMessage("Registration successful. Please verify your email.");
-      setTimeout(() => navigate("/login"), 2500);
+      if (!res.ok) {
+        throw new Error(data.message || "Registration failed");
+      }
+
+      // Redirect to OTP screen (same as user signup)
+      navigate(`/verify-email?email=${form.email}`);
+
+    } catch (err) {
+      setMessage(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -91,8 +112,8 @@ export default function DoctorSignup() {
             />
           </div>
 
-          <button type="submit" className="doctor-btn">
-            Register & Verify Email
+          <button type="submit" className="doctor-btn" disabled={loading}>
+            {loading ? "Registering..." : "Register & Verify Email"}
           </button>
 
           <p className="note">

@@ -2,30 +2,61 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "./Signup.css";
+import BASE_URL from "../config/api";
 
 export default function UserSignup() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({});
+
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    dob: "",
+    place: "",
+    state: "",
+    country: ""
+  });
+
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
+    setLoading(true);
 
-    const res = await fetch(
-      "http://localhost:8080/api/auth/register/user",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+    try {
+      const res = await fetch(
+        `${BASE_URL}/api/auth/register/user`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
+
+      let data = {};
+      try {
+        data = await res.json();
+      } catch {
+        // backend returned empty body
       }
-    );
 
-    if (res.ok) {
-      setMessage("Registration successful. Please verify your email.");
-      setTimeout(() => navigate("/login"), 2000);
+      if (!res.ok) {
+        throw new Error(data.message || "Registration failed");
+      }
+
+      // Redirect to OTP screen
+      navigate(`/verify-email?email=${form.email}`);
+
+    } catch (err) {
+      setMessage(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -96,8 +127,8 @@ export default function UserSignup() {
             />
           </div>
 
-          <button type="submit" className="signup-btn">
-            Register
+          <button type="submit" className="signup-btn" disabled={loading}>
+            {loading ? "Registering..." : "Register"}
           </button>
 
           {message && <p className="success-msg">{message}</p>}
